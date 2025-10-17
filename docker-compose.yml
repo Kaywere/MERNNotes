@@ -9,9 +9,9 @@ services:
     container_name: mern-gamelist-backend
     restart: unless-stopped
     ports:
-      - "5001:5011"
+      - "5011:5011"
     environment:
-      - PORT=5001
+      - PORT=5011
       - MONGO_URI=${MONGO_URI}
       - UPSTASH_REDIS_REST_URL=${UPSTASH_REDIS_REST_URL}
       - UPSTASH_REDIS_REST_TOKEN=${UPSTASH_REDIS_REST_TOKEN}
@@ -25,7 +25,7 @@ services:
     container_name: mern-gamelist-frontend
     restart: unless-stopped
     ports:
-      - "80:8050"
+      - "8050:8050"
     depends_on:
       - backend
     networks:
