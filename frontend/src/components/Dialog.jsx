@@ -8,7 +8,7 @@ const Dialog = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white p-6 rounded-lg max-w-md w-full mx-4 "
+        className=" rounded-lg max-w-md w-full mx-4 "
         onClick={(e) => e.stopPropagation()}
       >
         {children}

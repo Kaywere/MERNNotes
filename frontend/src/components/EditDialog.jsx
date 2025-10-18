@@ -15,12 +15,16 @@ const EditDialog = ({
 }) => {
   const [editTitle, setEditTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setEditTitle(initialTitle || "");
     setContent(initialContent || "");
   }, [initialTitle, initialContent]);
-
+useEffect(() => {
+    if (!isOpen) {
+      setLoading(false);
+    }
+  }, [isOpen]);
   const handleSave = () => {
     // Validation
     if (!editTitle.trim()) {
@@ -37,33 +41,46 @@ const EditDialog = ({
     }
 
     onConfirm(editTitle, content);
+    setLoading(true);
   };
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col items-center justify-center gap-4">
-        <h2 className="text-xl font-bold text-center text-black">{title}</h2>
-        <input className="text-black border-2 border-black rounded-md p-2"
-          type="text"
-          placeholder="Title"
-          value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
-        />
-        <input className="text-black border-2 border-black rounded-md p-2"
-          type="text"
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <div className="flex gap-4">
-        <button className="btn btn-secondary" onClick={onClose}>
-            {cancelText}
-          </button>
-          <button className="btn btn-primary" onClick={handleSave}>
-            {confirmText}
-          </button>
+        <h2 className="text-xl font-bold text-center text-black"></h2>
 
-        </div>
+        <fieldset className="fieldset bg-base-200  border-neutral-500/50 rounded-box w-full border p-4">
+          <legend className="fieldset-legend text-xl font-bold bg-base-200 rounded-box border-transparent p-2">{title}</legend>
+
+          <label className="label">title</label>
+          <input
+            type="text"
+            className="input w-full"
+            placeholder="Enter title"
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+
+          <label className="label">Content</label>
+          <textarea
+            type="text"
+            className="textarea w-full"
+            placeholder="Enter content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <div className=" justify-end flex gap-4 mt-4">
+            <button className="btn btn-dash  btn-secondary" onClick={onClose}>
+              {cancelText}
+            </button>            <button className="btn btn-ghost border-neutral-500/80 btn-primary" onClick={handleSave} disabled={loading}>
+              {loading ? <div className="flex items-center gap-2"> <p className="">
+              Editing note...
+            </p>
+            <span className="loading loading-spinner "> </span></div> : confirmText}
+            </button>
+
+          </div>
+        </fieldset>
       </div>
     </Dialog>
   );

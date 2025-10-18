@@ -3,12 +3,13 @@ import NavBar from "../components/Navbar";
 import { useState } from "react";
 import { useEffect } from "react";
 import RaitLimitedUI from "../components/RaitLimitedUI";
-import axios from "axios";
+import api from "../lib/axios";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import DeleteDialog from "../components/DeleteDialog";
 import EditDialog from "../components/EditDialog";
 import CreateDialog from "../components/CreateDialog";
+
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -19,9 +20,10 @@ const HomePage = () => {
   const [noteToEdit, setNoteToEdit] = useState(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isAllTrashOpen, setIsAllTrashOpen] = useState(false);
+ 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/notes");
+      const res = await api.get("/notes");
       console.log(res.data);
       setNotes(res.data);
       setIsRateLimited(false);
@@ -54,7 +56,7 @@ const HomePage = () => {
 
   const handleTrashConfirm = async () => {
     try {
-      await axios.delete(`http://localhost:5001/api/notes/${noteToDelete._id}`);
+      await api.delete(`/notes/${noteToDelete._id}`);
       toast.success("Note Deleted Successfully");
       setNotes(notes.filter((note) => note._id !== noteToDelete._id));
     } catch (error) {
@@ -78,7 +80,7 @@ const HomePage = () => {
 
   const handleEditConfirm = async (title, content) => {
     try {
-      await axios.put(`http://localhost:5001/api/notes/${noteToEdit._id}`, {
+      await api.put(`/notes/${noteToEdit._id}`, {
         title,
         content,
       });
@@ -107,7 +109,7 @@ const HomePage = () => {
 
   const handleCreateConfirm = async (title, content) => {
     try {
-      const res = await axios.post(`http://localhost:5001/api/notes`, {
+      const res = await api.post(`/notes`, {
         title,
         content,
       });
@@ -125,17 +127,17 @@ const HomePage = () => {
   const onAllDeleteClick = () => {
     setIsAllTrashOpen(true);
   };
-const handleAllTrashClose = () => {
-  setIsAllTrashOpen(false);
-};
+  const handleAllTrashClose = () => {
+    setIsAllTrashOpen(false);
+  };
   const handleAllTrashConfirm = async () => {
-    try {if (notes.length > 0) {
-      await axios.delete(`http://localhost:5001/api/notes`);
+    try {
+      if (notes.length > 0) {
+        await api.delete(`/notes`);
         toast.success("Note Deleted Successfully");
         setNotes([]);
       } else {
         toast.error("Notes are empty! Add more Notes");
-        
       }
     } catch (error) {
       console.log("Error deleting note");
@@ -146,13 +148,15 @@ const handleAllTrashClose = () => {
     }
   };
 
-
   return (
     <div className="min-h-screen">
-      <NavBar onCreateClick={onCreateClick} onAllDeleteClick={onAllDeleteClick} />
+      <NavBar
+        onCreateClick={onCreateClick}
+        onAllDeleteClick={onAllDeleteClick}
+      />
       {isRateLimited && <RaitLimitedUI />}
 
-      <div className="max-w-7xl  mx-auto justify-center items-center px-4 mt-6">
+      <div className="max-w-7xl  mx-auto  px-4 mt-6">
         {loading && (
           <div className="max-w-7xl mx-auto flex justify-center items-center px-4 mt-6">
             <p className="text-center text-xl font-bold  ">
@@ -163,7 +167,7 @@ const handleAllTrashClose = () => {
         )}
 
         {notes.length > 0 && !isRateLimited && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
             {notes.map((note) => (
               <NoteCard
                 key={note._id}
