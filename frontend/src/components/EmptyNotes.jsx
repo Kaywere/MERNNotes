@@ -9,7 +9,7 @@ const EmptyNotes = ({onCreateClick}) => {
         <h1 className='mb-5 text-2xl font-bold '>No Notes Yet 🤔 </h1>
         <p className='mb-5 text-xl  text-gray-500 '>Feel free to add more notes</p>
             <button className='btn btn-primary text-xl' onClick={onCreateClick}>
-              <span>Create a New Note</span>
+              <span>Create a New Note!</span>
             </button>
         </div>
     </div>

@@ -42,7 +42,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchNotes();
-    console.log(notes.map.length)
+   
   }, []);
 
   const onDeleteClick = (note) => {
