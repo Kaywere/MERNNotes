@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5011;
 
 //middleware
-app.use(cors({ origin: ["https://mern.soss.site", "http://localhost:5173" , "http://192.168.1.51:8050"],
+app.use(cors({ origin: ["https://notes.soss.site", "http://localhost:5173" , "http://192.168.1.51:8050"],
 methods: ['GET', 'POST', 'PUT', 'DELETE'],
 credentials: true }));
 app.use(express.json());
