@@ -120,7 +120,6 @@ const HomePage = () => {
       console.log(error);
       toast.error("Error creating note");
     }
-    console.log("Note Created Successfully");
     setIsCreateOpen(false);
   };
 
