@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import notesRoutes from "./routes/notesroutes.js";
+import notesRoutes from "./routes/notesRoutes.js";
 import connectDB from "./Config/db.js";
 import rateLimit from "./middleware/ratelimiter.js";
 
@@ -10,10 +10,10 @@ dotenv.config({ quiet: true });
 
 //initialize express app
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5011;
 
 //middleware
-app.use(cors({ origin: ["https://mern.soss.site", "http://localhost:5173" , "http://localhost:4173"] }));
+app.use(cors({ origin: ["https://mern.soss.site", "http://localhost:5173" , "http://localhost:4173","http://localhost:8050"] }));
 app.use(express.json());
 app.use(rateLimit);
 

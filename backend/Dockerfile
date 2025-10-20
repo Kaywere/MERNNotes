@@ -1,24 +1,13 @@
-# frontend/Dockerfile
+FROM node:20-alpine
 
+WORKDIR /app
 
-    FROM node:20 AS builder
+COPY package*.json ./
 
-    WORKDIR /app
-    
-    COPY package*.json ./
-    RUN npm install
-    
-    COPY . .
+RUN npm ci --only=production
 
-    RUN npm run build
-    
-    
+COPY . .
 
-    FROM nginx:alpine
-    
+EXPOSE 5011
 
-    COPY --from=builder /app/build /usr/share/nginx/html
-    
-
-    EXPOSE 80
-    
+CMD [ "npm", "run", "start" ]

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import Dialog from "./dialog";
+import Dialog from "./Dialog.jsx";
 import toast from "react-hot-toast";
 const EditDialog = ({
   isOpen,

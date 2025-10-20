@@ -1,5 +1,5 @@
 import React from "react";
-import Dialog from "./dialog";
+import Dialog from "./Dialog.jsx";
 import { useState, useEffect } from "react";
 const DeleteDialog = ({
   isOpen,

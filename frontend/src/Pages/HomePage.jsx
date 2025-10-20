@@ -149,7 +149,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div class="min-h-screen">
       <NavBar
         onCreateClick={onCreateClick}
         onAllDeleteClick={onAllDeleteClick}
@@ -177,6 +177,7 @@ const HomePage = () => {
               />
             ))}
           </div>
+          
         )}
       </div>
 
