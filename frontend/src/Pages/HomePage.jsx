@@ -9,6 +9,7 @@ import NoteCard from "../components/NoteCard";
 import DeleteDialog from "../components/DeleteDialog";
 import EditDialog from "../components/EditDialog";
 import CreateDialog from "../components/CreateDialog";
+import EmptyNotes from "../components/EmptyNotes";
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -24,7 +25,6 @@ const HomePage = () => {
   const fetchNotes = async () => {
     try {
       const res = await api.get("/notes");
-      console.log(res.data);
       setNotes(res.data);
       setIsRateLimited(false);
     } catch (error) {
@@ -42,6 +42,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchNotes();
+    console.log(notes.map.length)
   }, []);
 
   const onDeleteClick = (note) => {
@@ -148,12 +149,15 @@ const HomePage = () => {
   };
 
   return (
-    <div class="min-h-screen">
+    <div className="min-h-screen">
       <NavBar
         onCreateClick={onCreateClick}
         onAllDeleteClick={onAllDeleteClick}
       />
       {isRateLimited && <RaitLimitedUI />}
+
+      {notes.length === 0 && !loading && <EmptyNotes
+      onCreateClick={onCreateClick} />  }
 
       <div className="max-w-7xl  mx-auto  px-4 mt-6">
         {loading && (
