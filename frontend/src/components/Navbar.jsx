@@ -8,7 +8,7 @@ const NavBar = ({ onCreateClick, onAllDeleteClick }) => {
       <div className="mx-auto max-w-7xl p-4 ">
         <div className="flex justify-between items-center  ">
           <h1 className="text-4xl font-bold text-primary font-sans tracking-tight">
-            Note App فيصل الزهراني
+            Note App
           </h1>
           <ThemeDropdown />
           <div className="grid lg:flex justify-items-end gap-2 grid-cols-1 md:grid-cols-2">
